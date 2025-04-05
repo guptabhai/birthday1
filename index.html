@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Birthday My Love 🎂</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: url('https://i.imgur.com/V7gKh0G.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+      height: 100%;
+    }
+
+    .center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      text-align: center;
+      z-index: 2;
+      padding: 0 5vw;
+      width: 90%;
+      box-sizing: border-box;
+    }
+    h1 {
+  font-size: clamp(24px, 6vw, 48px);
+  animation: glow 1.5s ease-in-out infinite alternate;
+}
+
+
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff69b4;
+      }
+      to {
+        text-shadow: 0 0 20px #ff1493, 0 0 30px #ff1493;
+      }
+    }
+
+    .btn {
+      margin-top: 20px;
+      padding: 12px 24px;
+      
+  font-size: clamp(16px, 4vw, 24px);
+
+
+      max-width: 90%;
+      border: none;
+      background: #ff1493;
+      color: white;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #ff69b4;
+      transition: transform 0.3s;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+    }
+
+    #msgBox {
+      display: none;
+      position: absolute;
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      max-width: 600px;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.85);
+      color: white;
+      border-radius: 20px;
+      z-index: 5;
+      animation: pop 0.5s ease-out;
+      box-sizing: border-box;
+    }
+
+    @keyframes pop {
+      from {
+        transform: translateX(-50%) scale(0);
+      }
+      to {
+        transform: translateX(-50%) scale(1);
+      }
+    }
+
+    #msgBox h2 {
+        font-size: clamp(20px, 5vw, 36px);
+      margin-bottom: 10px;
+    }
+
+    #msgBox p {
+        font-size: clamp(14px, 4vw, 22px);
+      line-height: 1.5;
+    }
+
+    .sparkle {
+      position: fixed;
+      width: 5px;
+      height: 5px;
+      background: white;
+      border-radius: 50%;
+      animation: sparkle 1s ease-out forwards;
+      z-index: 1;
+    }
+
+    @keyframes sparkle {
+      to {
+        transform: translateY(-100vh);
+        opacity: 0;
+      }
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 4;
+    }
+  </style>
+</head>
+<body>
+
+<div class="center">
+  <h1>🎉 Happy Birthday, My Love 💖</h1>
+  <button class="btn" onclick="showMessage()">Tap for Surprise 🎁</button>
+</div>
+
+<div id="msgBox">
+  <h2>To the Queen of My Heart 👑</h2>
+  <p>
+    Every moment with you is like a beautiful dream come true. <br>
+    On your special day, I just want to say thank you for being the most amazing part of my life. <br>
+    May this birthday bring you endless joy, laughter, and love—just like you've brought into my life. 💕
+  </p>
+  <p>I love you more than words can say. 😘</p>
+</div>
+
+<canvas id="fireworks"></canvas>
+
+<!-- 🎶 Background Music -->
+<audio autoplay loop>
+  <source src="ipltheme.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  function showMessage() {
+    document.getElementById('msgBox').style.display = 'block';
+    explodeFireworks();
+  }
+
+  // Sparkle effect
+  document.addEventListener('mousemove', e => {
+    const sparkle = document.createElement('div');
+    sparkle.className = 'sparkle';
+    sparkle.style.left = e.pageX + 'px';
+    sparkle.style.top = e.pageY + 'px';
+    document.body.appendChild(sparkle);
+    setTimeout(() => sparkle.remove(), 1000);
+  });
+
+  // Fireworks
+  const canvas = document.getElementById('fireworks');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  function explodeFireworks() {
+    for (let i = 0; i < 30; i++) {
+      setTimeout(() => createFirework(), i * 100);
+    }
+  }
+
+  function createFirework() {
+    let x = Math.random() * canvas.width;
+    let y = Math.random() * canvas.height / 2;
+    let radius = Math.random() * 3 + 2;
+    let count = 50;
+    for (let i = 0; i < count; i++) {
+      let angle = (i / count) * 2 * Math.PI;
+      let speed = Math.random() * 4 + 2;
+      let dx = Math.cos(angle) * speed;
+      let dy = Math.sin(angle) * speed;
+      particles.push({
+        x, y, dx, dy, radius,
+        alpha: 1,
+        color: `hsl(${Math.random() * 360}, 100%, 50%)`
+      });
+    }
+  }
+
+  let particles = [];
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach((p, i) => {
+      p.x += p.dx;
+      p.y += p.dy;
+      p.alpha -= 0.01;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI);
+      ctx.fillStyle = `rgba(${hexToRGB(p.color)}, ${p.alpha})`;
+      ctx.fill();
+      if (p.alpha <= 0) particles.splice(i, 1);
+    });
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+
+  function hexToRGB(h) {
+    let temp = document.createElement("div");
+    temp.style.color = h;
+    document.body.appendChild(temp);
+    let rgb = getComputedStyle(temp).color;
+    document.body.removeChild(temp);
+    return rgb.match(/\d+/g).join(",");
+  }
+
+  window.addEventListener("resize", () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
+</script>
+
+</body>
+</html>
