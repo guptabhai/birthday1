@@ -27,11 +27,11 @@
       width: 90%;
       box-sizing: border-box;
     }
-    h1 {
-  font-size: clamp(24px, 6vw, 48px);
-  animation: glow 1.5s ease-in-out infinite alternate;
-}
 
+    h1 {
+      font-size: clamp(24px, 6vw, 48px);
+      animation: glow 1.5s ease-in-out infinite alternate;
+    }
 
     @keyframes glow {
       from {
@@ -45,10 +45,7 @@
     .btn {
       margin-top: 20px;
       padding: 12px 24px;
-      
-  font-size: clamp(16px, 4vw, 24px);
-
-
+      font-size: clamp(16px, 4vw, 24px);
       max-width: 90%;
       border: none;
       background: #ff1493;
@@ -90,12 +87,12 @@
     }
 
     #msgBox h2 {
-        font-size: clamp(20px, 5vw, 36px);
+      font-size: clamp(20px, 5vw, 36px);
       margin-bottom: 10px;
     }
 
     #msgBox p {
-        font-size: clamp(14px, 4vw, 22px);
+      font-size: clamp(14px, 4vw, 22px);
       line-height: 1.5;
     }
 
@@ -128,38 +125,42 @@
 <body>
 
 <div class="center">
- 
   <button class="btn" onclick="showMessage()">Tap for Surprise 🎁</button>
 </div>
 
 <div id="msgBox">
- 
+  <h1>HAPPY BIRTHDAY MADAM JI</h1>
   <p>
-   <h1> HAPPY BIRTHDAY MADAM JI </h1>
     You are the most beautiful girl in this entire world 🥰🥰 <br>
     Today is the best day ever because it's the day you were born. <br>
-    your smile brighten's everyone's day!!  <br>
-    May your day and coming future filled with laughter, love and all your favourite things.<br>
-    I'm thankful that the universe sent you <br>
-    Wishing you the Happiest Birthday , you deserve a day full of celebration and love <br>
-    I pray to lord krishna that he alwayskeeps you happy and healthy 😄💖 <br>
+    Your smile brightens everyone's day!! <br>
+    May your day and coming future be filled with laughter, love, and all your favourite things.<br>
+    I'm thankful that the universe sent you. <br>
+    Wishing you the Happiest Birthday, you deserve a day full of celebration and love. <br>
+    I pray to Lord Krishna that he always keeps you happy and healthy 😄💖 <br>
     Happiness looks gorgeous on you so always keep smiling 😄😄. <br>
-    And again I wish you a very Happy Birthday Jyoti madam
-    
+    And again, I wish you a very Happy Birthday Jyoti madam.
   </p>
 </div>
 
 <canvas id="fireworks"></canvas>
 
 <!-- 🎶 Background Music -->
-<audio class="bg-music" loop>
+<audio id="bgMusic" loop>
   <source src="Tumse Kiran Dhoop Ki - PagalMass.mp3" type="audio/mpeg">
 </audio>
-
 
 <script>
   function showMessage() {
     document.getElementById('msgBox').style.display = 'block';
+
+    // Play background music
+    const music = document.getElementById('bgMusic');
+    music.muted = false;
+    music.play().catch(e => {
+      console.log("Music autoplay blocked. Will play on user gesture.");
+    });
+
     explodeFireworks();
   }
 
@@ -185,6 +186,7 @@
     }
   }
 
+  let particles = [];
   function createFirework() {
     let x = Math.random() * canvas.width;
     let y = Math.random() * canvas.height / 2;
@@ -203,7 +205,6 @@
     }
   }
 
-  let particles = [];
   function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     particles.forEach((p, i) => {
@@ -238,3 +239,4 @@
 
 </body>
 </html>
+
