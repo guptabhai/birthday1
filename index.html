@@ -15,14 +15,7 @@
       height: 100%;
     }
 
-.girl-photo {
-  width: 100%;
-  max-width: 300px;
-  border-radius: 20px;
-  margin-top: 20px;
-  box-shadow: 0 0 20px rgba(255, 105, 180, 0.8);
-  animation: fadeIn 2s ease-in-out;
-}
+
 
 @keyframes fadeIn {
   from { opacity: 0; transform: scale(0.95); }
@@ -75,13 +68,14 @@
     }
 
     #msgBox {
-      display: none;
+      display: block;
       position: absolute;
-      top: 10%;
+      top: 5%;
       left: 50%;
       transform: translateX(-50%);
+      overflow-y: auto;
       width: 90%;
-      max-width: 600px;
+      max-width: 90vh;
       padding: 20px;
       background: rgba(0, 0, 0, 0.85);
       color: white;
@@ -126,7 +120,18 @@
         opacity: 0;
       }
     }
+.single-photo {
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  margin-top: 20px;
+  display: block;
+  box-shadow: 0 0 20px rgba(255, 105, 180, 0.8);
+}
 
+
+
+    
     canvas {
       position: fixed;
       top: 0;
@@ -161,7 +166,7 @@
  Happy Bala birthday my life ❤💝🌹and my <br>favorite person 🤭🫣💝
     
   </p>
- <img src="mayank pic 1.jpg" class="girl-photo" alt="Happy Girl">
+ <img src="mayank pic 1.jpg" class="single-photo" alt="Happy Girl">
 
 </div>
 
